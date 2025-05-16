@@ -148,11 +148,11 @@ spec:
       restartPolicy: Always
       dnsConfig:
         searches:
-          - {{ .Values.caremessage.environment }}.cm
+          - {{ $.Values.caremessage.environment }}.cm
       volumes:
       - name: certificates-secret-volume
         secret:
-          secretName: {{ .Values.certSecret }}
+          secretName: {{ $.Values.certSecret }}
       terminationGracePeriodSeconds: 30      
       {{- if .tls }}
       volumes:

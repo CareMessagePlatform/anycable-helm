@@ -75,7 +75,7 @@ pod:
 
 service:
   annotations: {}
-  type: ClusterIP
+  type: LoadBalancer
 
 # Define names or additional secrets to overwrite env variables
 # from the `env-secret.yml`.
@@ -448,3 +448,8 @@ env:
 global:
   # In this global you can overload any path defined in the rest of the chart
   anycableGo: {}
+
+caremessage:
+  environment: #set "staging" or "prodcution" when you run helm install/update
+
+certSecret: "caremessage-secrets-certificates-202208"
