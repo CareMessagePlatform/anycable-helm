@@ -469,6 +469,6 @@ global:
   anycableGo: {}
 
 caremessage:
-  environment: #set "staging" or "prodcution" when you run helm install/update
+  environment: "staging"
 
 certSecret: "caremessage-secrets-certificates-202208"
