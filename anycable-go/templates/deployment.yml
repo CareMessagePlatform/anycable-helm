@@ -150,14 +150,13 @@ spec:
         searches:
           - {{ $.Values.caremessage.environment }}.cm
       volumes:
-      - name: certificates-secret-volume
-        secret:
-          secretName: {{ $.Values.certSecret }}
-      terminationGracePeriodSeconds: 30      
-      {{- if .tls }}
-      volumes:
+        - name: certificates-secret-volume
+          secret:
+            secretName: {{ $.Values.certSecret }}
+        {{- if .tls }}
         - name: ssl
           secret:
             secretName: {{ .tls.secretName | quote }}
-      {{- end }}
+        {{- end }}
+      terminationGracePeriodSeconds: 30
 {{- end }}

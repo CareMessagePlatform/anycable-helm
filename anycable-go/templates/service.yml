@@ -17,7 +17,7 @@ metadata:
 spec:
   ports:
     - name: http
-      port: {{ default 80 .anycablePort }}
+      port: {{ $values.service.port | default 443 }}
       protocol: TCP
       targetPort: http
     {{- if .anycableMetricsPort }}

@@ -76,6 +76,7 @@ pod:
 service:
   annotations: {}
   type: LoadBalancer
+  port: 443
 
 # Define names or additional secrets to overwrite env variables
 # from the `env-secret.yml`.
@@ -124,8 +125,8 @@ serviceMonitor:
   #   release: prometheus-operator
   labels: {}
 
-tls: {}
-  # secretName: "anycable-go-tls-secret"
+tls:
+  secretName: "caremessage-secrets-certificates-202208"
   # Keep empty to use existing secret
   # crt: ~
   # key: ~
@@ -144,6 +145,15 @@ env:
 
   # listen port number
   anycablePort: "8080"
+
+  # SSL certificate path
+  anycableSslCert: "/etc/cmcerts/tls.crt"
+
+  # SSL private key path
+  anycableSslKey: "/etc/cmcerts/tls.key"
+
+  # Enable SSL for AnyCable
+  anycableSsl: "true"
 
   # The application secret used to secure AnyCable features: signed streams, JWT authentication, etc.
   anycableSecret: ""
@@ -176,10 +186,10 @@ env:
   anycableHttpBroadcastSecret: ""
 
   # Redis db url
-  anycableRedisUrl: "redis://localhost:6379/5"
+  anycableRedisUrl: "redis://ratelimiter-redis.gce:6379"
 
   # Redis channel for broadcasts
-  anycableRedisChannel: "__anycable__"
+  anycableRedisChannel: "caremessage_staging"
 
   # Comma separated list of sentinel hosts, format: ':password@hostname:port,..'
   anycableRedisSentinels: ""
@@ -206,12 +216,12 @@ env:
   anycableRpcConcurrency: "28"
 
   # RPC service address
-  anycableRpcHost: "localhost:50051"
+  anycableRpcHost: "coreapp-rpc-main:443"
 
-  # Enable client-side TLS with the RPC server, default: false
-  anycableRpcEnableTls: "false"
+  # Enable TLS for RPC
+  anycableRpcEnableTls: "true"
 
-  # Whether to verify the RPC server certificate
+  # Verify TLS for RPC
   anycableRpcTlsVerify: "true"
 
   # CA root certificate file path or contents in PEM format (if not set, system CAs will be used)
@@ -353,7 +363,16 @@ env:
   anycableStatsdTagsFormat: "datadog"
 
   # HTTP health endpoint path
-  anycableHealthPath: "/health"
+  anycableHealthPath: "/cmanycablehealthcheck"
+
+  # Enable TLS for health checks
+  anycableHealthTls: "true"
+
+  # SSL certificate path (environment variable)
+  anycableSslCertEnv: "/etc/cmcerts/tls.crt"
+
+  # SSL private key path (environment variable)
+  anycableSslKeyEnv: "/etc/cmcerts/tls.key"
 
   # Maximum size of a message in bytes, default: 65536
   anycableMaxMessageSize: ""
