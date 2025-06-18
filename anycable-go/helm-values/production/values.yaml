@@ -219,10 +219,10 @@ env:
   anycableRpcHost: "coreapp-rpc-main:443"
 
   # Enable TLS for RPC
-  anycableRpcEnableTls: "true"
+  anycableRpcEnableTls: "false"
 
   # Verify TLS for RPC
-  anycableRpcTlsVerify: "true"
+  anycableRpcTlsVerify: "false"
 
   # CA root certificate file path or contents in PEM format (if not set, system CAs will be used)
   anycableRpcTlsRootCa: ""
